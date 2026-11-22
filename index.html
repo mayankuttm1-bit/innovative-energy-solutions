@@ -730,180 +730,210 @@
     </div>
   </section>
 
-  <!-- 8. OUR PROJECTS (SHOWCASING ALL 12 GOOGLE MAPS REAL PHOTOS) -->
-  <section id="projects" class="py-16 md:py-24 bg-white">
+  <!-- 8. OUR PROJECTS (SCROLLABLE RIGHT TO LEFT CAROUSEL) -->
+  <section id="projects" class="py-16 md:py-24 bg-white w-full max-w-full overflow-hidden relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-10 reveal-on-scroll">
-        <span class="text-xs font-extrabold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200">
-          Real On-Site Track Record
-        </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-4">
-          Our Solar Projects In Ujjain & Surrounding Areas
-        </h2>
-        <p class="text-base text-slate-600">
-          Actual field installations photographed on client rooftops, commercial premises, and solar plants in Ujjain, Freeganj, and Sethi Nagar.
-        </p>
+      <!-- Section Header & Navigation Controls -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-8 gap-4 reveal-on-scroll">
+        <div class="max-w-2xl">
+          <span class="text-xs font-extrabold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200">
+            Real On-Site Track Record
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-2">
+            Our Solar Projects In Ujjain & Surrounding Areas
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600">
+            Actual field installations photographed on client rooftops, commercial premises, and solar plants in Ujjain. Scroll right to left or drag to explore.
+          </p>
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <div class="flex items-center gap-3 self-start md:self-auto flex-shrink-0">
+          <span class="text-xs font-semibold text-slate-500 hidden sm:inline-flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Auto-gliding
+          </span>
+          <div class="flex items-center gap-2">
+            <button id="project-prev-btn" type="button" class="w-10 h-10 rounded-full border border-slate-300 bg-white hover:bg-slate-900 hover:text-white hover:border-slate-900 text-slate-800 shadow-sm flex items-center justify-center transition-all cursor-pointer active:scale-95" aria-label="Previous Projects">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button id="project-next-btn" type="button" class="w-10 h-10 rounded-full border border-slate-300 bg-white hover:bg-slate-900 hover:text-white hover:border-slate-900 text-slate-800 shadow-sm flex items-center justify-center transition-all cursor-pointer active:scale-95" aria-label="Next Projects">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="flex items-center justify-center gap-2 flex-wrap mb-10 reveal-on-scroll">
-        <button type="button" class="project-filter-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-slate-900 text-white border border-slate-900 transition-colors" data-filter="all">All Projects (12)</button>
-        <button type="button" class="project-filter-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="residential">Residential</button>
-        <button type="button" class="project-filter-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="commercial">Commercial</button>
-        <button type="button" class="project-filter-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="elevated">Elevated GI Pergolas</button>
-        <button type="button" class="project-filter-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="engineering">Inverters & Wiring</button>
+      <!-- Filter Buttons (Clean wrap on all devices) -->
+      <div class="flex flex-wrap items-center justify-start sm:justify-center gap-2 mb-8 reveal-on-scroll">
+        <button type="button" class="project-filter-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-slate-900 text-white border border-slate-900 transition-colors" data-filter="all">All Projects (12)</button>
+        <button type="button" class="project-filter-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="residential">Residential</button>
+        <button type="button" class="project-filter-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="commercial">Commercial</button>
+        <button type="button" class="project-filter-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="elevated">Elevated GI Pergolas</button>
+        <button type="button" class="project-filter-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-colors" data-filter="engineering">Inverters & Wiring</button>
       </div>
 
-      <!-- Projects Grid: 12 Real Images from Google Listing -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Scrollable Track: 12 Real Images from Google Listing -->
+      <div id="projects-scroll-track" class="projects-scroll-container">
         
         <!-- Project 1 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="residential">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="residential">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/rooftop-residential-1.jpg" data-caption="5 kW Residential Rooftop Solar Array, Sethi Nagar, Ujjain">
             <img src="assets/images/rooftop-residential-1.jpg" alt="Residential Rooftop Solar Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Residential 5 kW</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">5 kW Rooftop Solar Villa Installation</h3>
             <p class="text-xs text-slate-500 mt-1">Sethi Nagar, Ujjain • ₹78,000 Subsidy Credited</p>
           </div>
         </div>
 
         <!-- Project 2 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="commercial">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="commercial">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/solar-plant-field.jpg" data-caption="Ground-Mounted Solar Installation, Industrial Suburbs Ujjain">
             <img src="assets/images/solar-plant-field.jpg" alt="Ground Mount Solar Field Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Commercial 50 kW</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Commercial Ground-Mount Solar Array</h3>
             <p class="text-xs text-slate-500 mt-1">Industrial Area, Ujjain • High Yield Trackers</p>
           </div>
         </div>
 
         <!-- Project 3 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="commercial">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="commercial">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/commercial-rooftop-2.jpg" data-caption="25 kW Commercial Rooftop Solar, Freeganj Business Center">
             <img src="assets/images/commercial-rooftop-2.jpg" alt="Commercial Rooftop Solar Freeganj" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Commercial 25 kW</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Commercial Complex Rooftop System</h3>
             <p class="text-xs text-slate-500 mt-1">Freeganj Commercial Hub • 40% Dep. Benefit</p>
           </div>
         </div>
 
         <!-- Project 4 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="engineering">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="engineering">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/inverter-installation.jpg" data-caption="Smart On-Grid Inverter & Surge Protection Setup">
             <img src="assets/images/inverter-installation.jpg" alt="Solar Inverter Installation Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-amber-600 text-white text-[11px] font-bold px-2.5 py-1 rounded">Growatt On-Grid</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Smart Inverter & Surge Protection</h3>
             <p class="text-xs text-slate-500 mt-1">Dual MPPT Inverter with IoT Wi-Fi Monitoring</p>
           </div>
         </div>
 
         <!-- Project 5 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="elevated">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="elevated">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/high-elevation-array.jpg" data-caption="High-Rise Elevated Hot-Dip Galvanized Solar Structure (10ft Clearance)">
             <img src="assets/images/high-elevation-array.jpg" alt="High Elevation Solar Structure" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-1 rounded">Elevated 10ft</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">High-Elevation Terrace Pergola</h3>
             <p class="text-xs text-slate-500 mt-1">Freeganj Residence • 100% Usable Rooftop Terrace</p>
           </div>
         </div>
 
         <!-- Project 6 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="commercial">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="commercial">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/industrial-solar-shed.jpg" data-caption="Industrial Curved Shed Solar Rooftop Installation">
             <img src="assets/images/industrial-solar-shed.jpg" alt="Industrial Solar Shed Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Industrial 100 kW</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Factory Shed Rooftop Solar Power</h3>
             <p class="text-xs text-slate-500 mt-1">Nagda Road Industrial Zone • Heavy Duty Mounting</p>
           </div>
         </div>
 
         <!-- Project 7 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="residential">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="residential">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/on-grid-panels.jpg" data-caption="Bifacial TopCon Solar Modules with High Yield Generation">
             <img src="assets/images/on-grid-panels.jpg" alt="Bifacial Solar Panels Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Bifacial 550Wp</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">High-Efficiency Bifacial TopCon Modules</h3>
             <p class="text-xs text-slate-500 mt-1">Maximized power harvest from rear diffuse sunlight</p>
           </div>
         </div>
 
         <!-- Project 8 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="engineering">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="engineering">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/solar-wiring-box.jpg" data-caption="ACDB / DCDB Safety Box with Type-II Surge Protection">
             <img src="assets/images/solar-wiring-box.jpg" alt="Solar ACDB DCDB Box" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-amber-600 text-white text-[11px] font-bold px-2.5 py-1 rounded">Safety Certified</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">AC/DC Distribution & Lightning Protection</h3>
             <p class="text-xs text-slate-500 mt-1">IP65 enclosures with individual circuit breakers</p>
           </div>
         </div>
 
         <!-- Project 9 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="engineering">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="engineering">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/team-on-site.jpg" data-caption="Innovative Energy Solutions Engineering Team On-Site Commissioning">
             <img src="assets/images/team-on-site.jpg" alt="Innovative Energy Solutions Team Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Field Team</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Certified EPC Engineering Crew</h3>
             <p class="text-xs text-slate-500 mt-1">Rigorous testing, voltage calibration & commissioning</p>
           </div>
         </div>
 
         <!-- Project 10 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="elevated">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="elevated">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/mounting-structure.jpg" data-caption="Heavy Hot-Dip Galvanized Iron Mounting Structures">
             <img src="assets/images/mounting-structure.jpg" alt="Solar Mounting Structure Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-1 rounded">Hot-Dip GI</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Rust-Proof Hot-Dip GI Structure</h3>
             <p class="text-xs text-slate-500 mt-1">80-micron zinc coating for 30+ years rust immunity</p>
           </div>
         </div>
 
         <!-- Project 11 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="residential">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="residential">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/hero-rooftop-solar.jpg" data-caption="3 kW PM Surya Ghar Rooftop Solar, Dashahara Maidan Road, Ujjain">
             <img src="assets/images/hero-rooftop-solar.jpg" alt="Rooftop Solar Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-obsidian text-white text-[11px] font-bold px-2.5 py-1 rounded">Residential 3 kW</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">3 kW On-Grid Rooftop Installation</h3>
             <p class="text-xs text-slate-500 mt-1">Dashahara Maidan Road, Ujjain • Zero Electricity Bill</p>
           </div>
         </div>
 
         <!-- Project 12 -->
-        <div class="project-card card-premium overflow-hidden reveal-on-scroll" data-category="commercial">
+        <div class="project-card project-card-slide card-premium overflow-hidden flex flex-col justify-between" data-category="commercial">
           <div class="img-zoom-container relative aspect-[4/3] bg-slate-900 cursor-pointer lightbox-trigger" data-src="assets/images/ujjain-facility-banner.jpg" data-caption="Innovative Energy Solutions Head Office & Facility, Freeganj, Ujjain">
             <img src="assets/images/ujjain-facility-banner.jpg" alt="Innovative Energy Solutions Office Freeganj Ujjain" class="w-full h-full object-cover">
             <span class="absolute top-3 left-3 bg-amber-600 text-white text-[11px] font-bold px-2.5 py-1 rounded">Head Office</span>
           </div>
-          <div class="p-5">
+          <div class="p-5 flex-1 flex flex-col justify-between">
             <h3 class="text-base font-bold text-slate-900">Physical Facility & Customer Center</h3>
             <p class="text-xs text-slate-500 mt-1">Near Sanjivani Hospital, Freeganj, Ujjain</p>
           </div>
         </div>
 
       </div>
+
+      <!-- Scroll Progress Bar Indicator -->
+      <div class="w-full bg-slate-100 h-1.5 rounded-full mt-4 overflow-hidden max-w-md mx-auto">
+        <div id="projects-scroll-progress" class="bg-amber-500 h-full w-1/4 rounded-full transition-all duration-150"></div>
+      </div>
+
+    </div>
+  </section>
 
     </div>
   </section>

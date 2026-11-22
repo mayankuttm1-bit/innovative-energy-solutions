@@ -71,6 +71,60 @@ html, body {
   border-color: var(--color-slate-300);
 }
 
+/* Horizontal Scrollable Projects Carousel (Right-to-Left / Left-to-Right) */
+.projects-scroll-container {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100%;
+  padding-bottom: 0.75rem;
+  padding-top: 0.25rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+  cursor: grab;
+  user-select: none;
+}
+
+.projects-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.projects-scroll-container:active {
+  cursor: grabbing;
+}
+
+.project-card-slide {
+  flex: 0 0 285px;
+  max-width: 285px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 640px) {
+  .project-card-slide {
+    flex: 0 0 340px;
+    max-width: 340px;
+  }
+}
+
+@media (min-width: 768px) {
+  .project-card-slide {
+    flex: 0 0 370px;
+    max-width: 370px;
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 .card-dark-premium {
   background: var(--color-obsidian);
   border: 1px solid #1E293B;
