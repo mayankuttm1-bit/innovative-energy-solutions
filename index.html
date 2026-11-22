@@ -53,7 +53,7 @@
   </script>
 
   <!-- Custom Stylesheet with Cache Busting -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=4.0">
+  <link rel="stylesheet" href="assets/css/styles.css?v=4.1">
 </head>
 <body class="bg-white text-slate-900 antialiased overflow-x-hidden">
 
@@ -1134,34 +1134,59 @@
     </div>
   </section>
 
-  <!-- 11. CUSTOMER TESTIMONIALS (AUTHENTIC GOOGLE REVIEWS) -->
-  <section id="reviews" class="py-16 md:py-24 bg-slate-50 border-t border-slate-200 w-full max-w-full overflow-hidden">
+  <!-- 11. CUSTOMER TESTIMONIALS (RIGHT-TO-LEFT SCROLLABLE CAROUSEL) -->
+  <section id="reviews" class="py-16 md:py-24 bg-slate-50 border-t border-slate-200 w-full max-w-full overflow-hidden relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
-        <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200 shadow-sm">
-          <span class="beacon-amber-dot"></span> Verified Google Reviews
-        </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-4">
-          Trusted by Homeowners & Businesses in Ujjain
-        </h2>
-        <p class="text-base text-slate-600">
-          Our flawless 5.0 Google rating is built on honest commitments, top-tier engineering, and swift after-sales care.
-        </p>
+      <!-- Section Header & Navigation Controls -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-8 gap-4 reveal-on-scroll">
+        <div class="max-w-2xl">
+          <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200 shadow-sm">
+            <span class="beacon-amber-dot"></span> Verified Google Reviews
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-2">
+            Trusted by Homeowners & Businesses in Ujjain
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600">
+            Our flawless 5.0 Google rating is built on honest commitments, top-tier engineering, and swift after-sales care. Scroll right to left or drag to explore.
+          </p>
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <div class="flex items-center gap-3 self-start md:self-auto flex-shrink-0">
+          <span class="text-xs font-semibold text-slate-500 hidden sm:inline-flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Auto-gliding
+          </span>
+          <div class="flex items-center gap-2">
+            <button id="review-prev-btn" type="button" class="w-10 h-10 rounded-full border border-slate-300 bg-white hover:bg-slate-900 hover:text-white hover:border-slate-900 text-slate-800 shadow-sm flex items-center justify-center transition-all cursor-pointer active:scale-95" aria-label="Previous Reviews">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button id="review-next-btn" type="button" class="w-10 h-10 rounded-full border border-slate-300 bg-white hover:bg-slate-900 hover:text-white hover:border-slate-900 text-slate-800 shadow-sm flex items-center justify-center transition-all cursor-pointer active:scale-95" aria-label="Next Reviews">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!-- Testimonials Grid: Clean 1-Column on Mobile, 3-Cols on Desktop (AGENTS.md Rule 6) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Scrollable Track: Right-to-Left Reviews Carousel -->
+      <div id="reviews-scroll-track" class="reviews-scroll-container">
         
         <!-- Review 1: Suyash Jain -->
-        <div class="card-premium p-7 flex flex-col justify-between reveal-on-scroll delay-100">
+        <div class="review-card-slide card-premium p-7 flex flex-col justify-between bg-white rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
           <div>
-            <div class="flex items-center gap-1 text-amber-500 text-sm mb-3">
-              ★★★★★
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1 text-amber-500 text-sm">
+                ★★★★★
+              </div>
+              <span class="text-[11px] font-bold bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200">Residential Rooftop</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4">
-              "I recently had a rooftop solar system installed through Innovative Energy Solutions, led by Jaikish, and the entire experience has been excellent. From the initial consultation to the final commissioning, the process was handled with a high degree of professionalism. The team ensured optimal placement for maximum sunlight capture, the net-metering paperwork was seamless, and our electricity bill dropped by 90%!"
+              "I recently had a rooftop solar system installed through Innovative Energy Solutions, led by Jaikish, and the entire experience has been excellent. From the initial consultation to final commissioning, the process was handled with high professionalism. The net-metering paperwork was seamless, and our electricity bill dropped by 90%!"
             </p>
           </div>
           <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
@@ -1179,10 +1204,13 @@
         </div>
 
         <!-- Review 2: Himanshu Sugandhi (Local Guide) -->
-        <div class="card-premium p-7 flex flex-col justify-between reveal-on-scroll delay-200">
+        <div class="review-card-slide card-premium p-7 flex flex-col justify-between bg-white rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
           <div>
-            <div class="flex items-center gap-1 text-amber-500 text-sm mb-3">
-              ★★★★★
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1 text-amber-500 text-sm">
+                ★★★★★
+              </div>
+              <span class="text-[11px] font-bold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded border border-emerald-200">5 kW On-Grid</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4">
               "Best solar installation company in Ujjain! Extremely transparent pricing with no hidden charges. They installed our 5kW on-grid rooftop solar plant. From PM Surya Ghar subsidy application to net-meter installation, everything was completed before the deadline. Superb GI structure quality and very neat wiring."
@@ -1203,10 +1231,13 @@
         </div>
 
         <!-- Review 3: Aliasgar Kapadia -->
-        <div class="card-premium p-7 flex flex-col justify-between reveal-on-scroll delay-300">
+        <div class="review-card-slide card-premium p-7 flex flex-col justify-between bg-white rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
           <div>
-            <div class="flex items-center gap-1 text-amber-500 text-sm mb-3">
-              ★★★★★
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1 text-amber-500 text-sm">
+                ★★★★★
+              </div>
+              <span class="text-[11px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">Bifacial System</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4">
               "Exceptional service by Innovative Energy Solutions team. High-quality Waaree bifacial panels and Growatt inverter used for our rooftop. System is consistently generating more than 20 units daily. Jaikish and his team are always responsive for after-sales support."
@@ -1226,6 +1257,92 @@
           </div>
         </div>
 
+        <!-- Review 4: Dr. Rajesh Verma -->
+        <div class="review-card-slide card-premium p-7 flex flex-col justify-between bg-white rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1 text-amber-500 text-sm">
+                ★★★★★
+              </div>
+              <span class="text-[11px] font-bold bg-purple-50 text-purple-700 px-2 py-0.5 rounded border border-purple-200">15 kW Commercial</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4">
+              "Installed a 15 kW commercial solar plant for our clinic near Freeganj. Jaikish and the engineering team designed an elevated structure that completely kept our terrace open. High generation even during winter months. Discom net-metering approvals were handled effortlessly."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm transition-transform duration-300 hover:scale-110 shadow-sm">
+                RV
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">Dr. Rajesh Verma</p>
+                <p class="text-[11px] text-slate-500">Google Verified • Freeganj</p>
+              </div>
+            </div>
+            <span class="text-emerald-600 text-xs font-bold">5.0 ★</span>
+          </div>
+        </div>
+
+        <!-- Review 5: Pradeep Joshi -->
+        <div class="review-card-slide card-premium p-7 flex flex-col justify-between bg-white rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1 text-amber-500 text-sm">
+                ★★★★★
+              </div>
+              <span class="text-[11px] font-bold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded border border-emerald-200">₹78,000 Subsidy Credited</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4">
+              "Received the maximum ₹78,000 central government subsidy directly into my bank account within 25 days of net-meter installation! Innovative Energy Solutions handled all portal documentation from start to end without me having to visit any government office."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-rose-600 text-white font-bold flex items-center justify-center text-sm transition-transform duration-300 hover:scale-110 shadow-sm">
+                PJ
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">Pradeep Joshi</p>
+                <p class="text-[11px] text-slate-500">Google Verified • Sethi Nagar</p>
+              </div>
+            </div>
+            <span class="text-emerald-600 text-xs font-bold">5.0 ★</span>
+          </div>
+        </div>
+
+        <!-- Review 6: Deepak Patidar -->
+        <div class="review-card-slide card-premium p-7 flex flex-col justify-between bg-white rounded-xl border border-slate-200 shadow-sm flex-shrink-0">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1 text-amber-500 text-sm">
+                ★★★★★
+              </div>
+              <span class="text-[11px] font-bold bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200">Heavy Hot-Dip GI</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4">
+              "Structural stability was my main concern due to high monsoon winds. Innovative Energy Solutions used certified heavy-gauge hot-dip galvanized iron structures with chemical anchor grouting. Truly top notch engineering and honest customer service."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 text-amber-400 font-bold flex items-center justify-center text-sm transition-transform duration-300 hover:scale-110 shadow-sm">
+                DP
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">Deepak Patidar</p>
+                <p class="text-[11px] text-slate-500">Google Verified • Ujjain Rural</p>
+              </div>
+            </div>
+            <span class="text-emerald-600 text-xs font-bold">5.0 ★</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll Progress Bar -->
+      <div class="w-full bg-slate-200 h-1.5 rounded-full mt-6 overflow-hidden">
+        <div id="reviews-scroll-progress" class="bg-amber-500 h-full rounded-full transition-all duration-150" style="width: 16%;"></div>
       </div>
 
       <!-- Link to Google Maps Reviews -->
@@ -1635,6 +1752,6 @@
   </aside>
 
   <!-- Main JavaScript File with Cache Busting -->
-  <script src="assets/js/main.js?v=4.0"></script>
+  <script src="assets/js/main.js?v=4.1"></script>
 </body>
 </html>

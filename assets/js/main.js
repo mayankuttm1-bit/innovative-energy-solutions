@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectsCarousel();
   initProjectFilters();
   initLightbox();
+  initReviewsCarousel();
   initFaqAccordion();
   initQuoteForm();
 });
@@ -481,7 +482,130 @@ function initLightbox() {
 }
 
 /* --------------------------------------------------------------------------
-   9. FAQ ACCORDION
+   9. HORIZONTAL SCROLLABLE REVIEWS CAROUSEL (RIGHT-TO-LEFT GLIDE)
+   -------------------------------------------------------------------------- */
+let isReviewDragging = false;
+
+function initReviewsCarousel() {
+  const track = document.getElementById('reviews-scroll-track');
+  const prevBtn = document.getElementById('review-prev-btn');
+  const nextBtn = document.getElementById('review-next-btn');
+  const progressBar = document.getElementById('reviews-scroll-progress');
+
+  if (!track) return;
+
+  let isPaused = false;
+  let isPointerDown = false;
+  let startX = 0;
+  let scrollStart = 0;
+  let dragDistance = 0;
+  const speed = 0.7; // Smooth auto-gliding speed (pixels per frame)
+  let resumeTimer = null;
+
+  function updateProgressBar() {
+    if (!progressBar) return;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll > 0) {
+      const percentage = Math.min(Math.max((track.scrollLeft / maxScroll) * 100, 8), 100);
+      progressBar.style.width = percentage + '%';
+    }
+  }
+
+  // Smooth auto-scroll loop (gliding from right to left)
+  function autoScrollStep() {
+    if (!isPaused && !isPointerDown && track.scrollWidth > track.clientWidth) {
+      track.scrollLeft += speed;
+      // Loop smoothly if end reached
+      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) {
+        track.scrollLeft = 0;
+      }
+      updateProgressBar();
+    }
+    requestAnimationFrame(autoScrollStep);
+  }
+  requestAnimationFrame(autoScrollStep);
+
+  function pauseAutoScroll(duration) {
+    isPaused = true;
+    if (resumeTimer) clearTimeout(resumeTimer);
+    if (duration) {
+      resumeTimer = setTimeout(() => {
+        isPaused = false;
+      }, duration);
+    }
+  }
+
+  // Pause on hover
+  track.addEventListener('mouseenter', () => { isPaused = true; });
+  track.addEventListener('mouseleave', () => {
+    if (!isPointerDown) isPaused = false;
+  });
+
+  // Touch events for mobile
+  track.addEventListener('touchstart', () => {
+    pauseAutoScroll();
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    pauseAutoScroll(2500);
+  });
+
+  // Manual Prev / Next navigation buttons
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      pauseAutoScroll(3500);
+      const cardWidth = track.querySelector('.review-card-slide')?.offsetWidth || 340;
+      track.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      pauseAutoScroll(3500);
+      const cardWidth = track.querySelector('.review-card-slide')?.offsetWidth || 340;
+      track.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' });
+    });
+  }
+
+  // Mouse Drag-to-Scroll (Desktop)
+  track.addEventListener('mousedown', (e) => {
+    isPointerDown = true;
+    pauseAutoScroll();
+    startX = e.pageX - track.offsetLeft;
+    scrollStart = track.scrollLeft;
+    dragDistance = 0;
+    isReviewDragging = false;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isPointerDown) return;
+    const currentX = e.pageX - track.offsetLeft;
+    const delta = currentX - startX;
+    dragDistance = Math.abs(delta);
+    if (dragDistance > 6) {
+      isReviewDragging = true;
+      e.preventDefault();
+      track.scrollLeft = scrollStart - (delta * 1.3);
+      updateProgressBar();
+    }
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (isPointerDown) {
+      isPointerDown = false;
+      setTimeout(() => {
+        isReviewDragging = false;
+        pauseAutoScroll(2000);
+      }, 50);
+    }
+  });
+
+  track.addEventListener('scroll', updateProgressBar, { passive: true });
+  updateProgressBar();
+}
+
+/* --------------------------------------------------------------------------
+   10. FAQ ACCORDION
    -------------------------------------------------------------------------- */
 function initFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq-item');
