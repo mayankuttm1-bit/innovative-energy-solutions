@@ -624,137 +624,108 @@
     </div>
   </section>
 
-  <!-- 7. SOLAR SAVINGS CALCULATOR -->
-  <section id="calculator" class="py-16 md:py-24 bg-slate-900 text-white relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- 7. SOLAR SAVINGS CALCULATOR (SIMPLE & CLEAN) -->
+  <section id="calculator" class="py-16 md:py-24 bg-slate-950 text-white border-t border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+      <div class="text-center max-w-2xl mx-auto mb-10 reveal-on-scroll">
         <span class="text-xs font-extrabold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-md border border-amber-400/20">
-          Instant Financial Simulator
+          Instant Estimate
         </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">
-          Calculate Your Rooftop Solar Savings & Subsidy
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-3 mb-3">
+          Solar Savings & Subsidy Calculator
         </h2>
-        <p class="text-base text-slate-300">
-          Slide your current monthly electricity bill to see your recommended solar plant size, PM Surya Ghar subsidy, and 25-year lifetime savings.
+        <p class="text-sm sm:text-base text-slate-300">
+          Select your monthly electricity bill to see your recommended solar plant size, PM Surya Ghar subsidy, and net investment.
         </p>
       </div>
 
-      <!-- Interactive Calculator Card -->
-      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl reveal-on-scroll">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Controls Column (Left) -->
-          <div class="lg:col-span-6 flex flex-col justify-between">
-            
-            <!-- Connection Type Toggle -->
-            <div class="mb-6">
-              <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Select Connection Type</label>
-              <div class="grid grid-cols-2 gap-3">
-                <label class="flex items-center justify-center gap-2 p-3 rounded-lg border border-slate-800 bg-slate-900 text-xs sm:text-sm font-semibold cursor-pointer has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10 has-[:checked]:text-amber-400 transition-all">
-                  <input type="radio" name="customer-type" value="residential" checked class="hidden">
-                  <span>Residential (Home)</span>
-                </label>
-                <label class="flex items-center justify-center gap-2 p-3 rounded-lg border border-slate-800 bg-slate-900 text-xs sm:text-sm font-semibold cursor-pointer has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10 has-[:checked]:text-amber-400 transition-all">
-                  <input type="radio" name="customer-type" value="commercial" class="hidden">
-                  <span>Commercial / Industrial</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Monthly Bill Slider -->
-            <div class="mb-8">
-              <div class="flex items-center justify-between mb-2">
-                <label for="bill-slider" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Average Monthly Electricity Bill</label>
-                <span id="bill-display" class="text-xl sm:text-2xl font-black text-amber-400">₹3,500</span>
-              </div>
-              <input id="bill-slider" type="range" min="1000" max="25000" step="500" value="3500" class="solar-slider w-full" aria-label="Monthly electricity bill slider">
-              <div class="flex justify-between text-[11px] text-slate-500 font-medium">
-                <span>₹1,000 / mo</span>
-                <span>₹12,000 / mo</span>
-                <span>₹25,000+ / mo</span>
-              </div>
-            </div>
-
-            <!-- Key Quick Specs -->
-            <div class="grid grid-cols-2 gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
-              <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase">Recommended System</p>
-                <p id="calc-kw" class="text-xl sm:text-2xl font-black text-white">4 kW</p>
-              </div>
-              <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase">Roof Area Required</p>
-                <p id="calc-roof" class="text-xl sm:text-2xl font-black text-white">360 sq.ft</p>
-              </div>
-            </div>
-
-            <p class="text-xs text-slate-400 mt-4 italic">
-              *Calculated using MPPKVVCL tariff rates (~₹7.5/unit) and 120 units/mo per kW average generation in Ujjain.
-            </p>
-
+      <!-- Clean Calculator Container -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl reveal-on-scroll">
+        
+        <!-- Bill Selector Section -->
+        <div class="mb-10 text-center">
+          <label for="bill-slider" class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-400">
+            Average Monthly Electricity Bill
+          </label>
+          <div class="my-3">
+            <span id="bill-display" class="text-4xl sm:text-5xl font-black text-amber-400 tracking-tight">₹3,500</span>
+            <span class="text-slate-400 text-sm font-medium">/ month</span>
           </div>
 
-          <!-- Results Summary Column (Right) -->
-          <div class="lg:col-span-6 bg-slate-900 rounded-xl p-6 sm:p-7 border border-slate-800">
-            <h3 class="text-base font-bold text-white mb-4 flex items-center justify-between">
-              <span>Financial Breakdown</span>
-              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PM Surya Ghar Ready</span>
-            </h3>
-
-            <div class="space-y-3 pb-5 border-b border-slate-800 text-sm">
-              <div class="flex justify-between items-center">
-                <span class="text-slate-400">Standard Project Cost:</span>
-                <span id="calc-cost" class="font-bold text-white">₹2,40,000</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-emerald-400 font-semibold">PM Surya Ghar Subsidy (DBT):</span>
-                <span id="calc-subsidy" class="font-bold text-emerald-400">-₹78,000</span>
-              </div>
-              <div class="flex justify-between items-center text-base pt-2 border-t border-slate-800/80">
-                <span class="font-bold text-amber-400">Your Net Effective Cost:</span>
-                <span id="calc-net-cost" class="font-black text-amber-400 text-lg">₹1,62,000</span>
-              </div>
+          <!-- Slider -->
+          <div class="max-w-xl mx-auto px-2">
+            <input id="bill-slider" type="range" min="1000" max="20000" step="500" value="3500" class="solar-slider w-full cursor-pointer" aria-label="Monthly electricity bill slider">
+            <div class="flex justify-between text-xs text-slate-500 font-medium mt-1">
+              <span>₹1,000</span>
+              <span>₹10,000</span>
+              <span>₹20,000+</span>
             </div>
+          </div>
 
-            <!-- Savings Metrics Grid -->
-            <div class="grid grid-cols-3 gap-3 py-4 text-center">
-              <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-                <p class="text-[10px] uppercase font-bold text-slate-400">Monthly Savings</p>
-                <p id="calc-monthly-savings" class="text-sm sm:text-base font-black text-white mt-1">₹3,500</p>
-              </div>
-              <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-                <p class="text-[10px] uppercase font-bold text-slate-400">Annual Savings</p>
-                <p id="calc-annual-savings" class="text-sm sm:text-base font-black text-emerald-400 mt-1">₹42,000</p>
-              </div>
-              <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
-                <p class="text-[10px] uppercase font-bold text-slate-400">Payback Period</p>
-                <p id="calc-payback" class="text-sm sm:text-base font-black text-amber-400 mt-1">3.8 Yrs</p>
-              </div>
-            </div>
+          <!-- Quick Preset Chips -->
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-5">
+            <span class="text-xs text-slate-400 mr-1 hidden sm:inline">Quick Select:</span>
+            <button type="button" class="calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors" data-bill="2000">₹2,000</button>
+            <button type="button" class="calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 transition-colors" data-bill="3500">₹3,500</button>
+            <button type="button" class="calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors" data-bill="5000">₹5,000</button>
+            <button type="button" class="calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors" data-bill="8000">₹8,000</button>
+            <button type="button" class="calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors" data-bill="12000">₹12,000+</button>
+          </div>
+        </div>
 
-            <!-- 25 Years Lifetime ROI Callout -->
-            <div class="mt-2 p-3.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between">
-              <div>
-                <p class="text-[11px] font-bold text-emerald-400 uppercase">25-Year Lifetime Savings</p>
-                <p id="calc-lifetime-savings" class="text-lg sm:text-xl font-black text-white">₹10,50,000</p>
-              </div>
-              <span class="text-2xl">🌱</span>
-            </div>
+        <!-- 4 Key Result Cards (Clean Responsive Grid) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          
+          <!-- Metric 1: System Size -->
+          <div class="bg-slate-950 p-4 sm:p-5 rounded-xl border border-slate-800 text-center">
+            <span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-1">Recommended System</span>
+            <p id="calc-kw" class="text-2xl sm:text-3xl font-black text-white">4 kW</p>
+            <span id="calc-roof" class="text-[11px] text-slate-400 mt-1 block">Requires ~360 sq.ft</span>
+          </div>
 
-            <!-- WhatsApp Direct Booking CTA -->
-            <a id="calc-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="mt-5 w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-lg bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition-all text-center shadow-lg">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.477-.15-.678.15-.2.301-.778.979-.954 1.18-.175.2-.351.226-.652.075-.301-.151-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.176.2-.301.301-.502.1-.2.05-.376-.025-.526-.075-.151-.678-1.632-.93-2.235-.245-.589-.494-.509-.678-.518-.176-.008-.376-.01-.577-.01-.2 0-.527.075-.803.376s-1.054 1.029-1.054 2.509 1.079 2.909 1.23 3.109c.15.201 2.122 3.24 5.14 4.543.718.31 1.278.496 1.716.634.721.23 1.378.197 1.9.119.58-.088 1.78-.727 2.03-1.43.25-.704.25-1.307.176-1.43-.075-.123-.276-.2-.577-.35z"/>
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.05 21.95a.8.8 0 00.999.999l4.782-1.388A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.167-.492-4.45-1.336a.8.8 0 00-.547-.118l-3.328.966.966-3.328a.8.8 0 00-.118-.547A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
-              </svg>
-              Book This Exact System On WhatsApp
-            </a>
+          <!-- Metric 2: Subsidy -->
+          <div class="bg-slate-950 p-4 sm:p-5 rounded-xl border border-emerald-900/40 text-center">
+            <span class="text-[11px] uppercase tracking-wider text-emerald-400 font-bold block mb-1">PM Surya Ghar Subsidy</span>
+            <p id="calc-subsidy" class="text-2xl sm:text-3xl font-black text-emerald-400">₹78,000</p>
+            <span class="text-[11px] text-emerald-500/80 mt-1 block">Direct DBT to Bank</span>
+          </div>
 
+          <!-- Metric 3: Net Effective Cost -->
+          <div class="bg-slate-950 p-4 sm:p-5 rounded-xl border border-amber-500/30 text-center">
+            <span class="text-[11px] uppercase tracking-wider text-amber-400 font-bold block mb-1">Your Net Investment</span>
+            <p id="calc-net-cost" class="text-2xl sm:text-3xl font-black text-amber-400">₹1,62,000</p>
+            <span id="calc-cost" class="text-[11px] text-slate-500 line-through mt-1 block">Total: ₹2,40,000</span>
+          </div>
+
+          <!-- Metric 4: Annual Savings -->
+          <div class="bg-slate-950 p-4 sm:p-5 rounded-xl border border-slate-800 text-center">
+            <span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-1">Estimated Annual Savings</span>
+            <p id="calc-annual-savings" class="text-2xl sm:text-3xl font-black text-white">₹42,000</p>
+            <span id="calc-payback" class="text-[11px] text-emerald-400 font-medium mt-1 block">Payback in ~3.8 Yrs</span>
           </div>
 
         </div>
+
+        <!-- Single Clear CTA Button -->
+        <div class="max-w-lg mx-auto text-center">
+          <a id="calc-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 w-full py-4 px-6 rounded-xl bg-emerald-600 text-white font-bold text-sm sm:text-base hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-900/30">
+            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.477-.15-.678.15-.2.301-.778.979-.954 1.18-.175.2-.351.226-.652.075-.301-.151-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.176.2-.301.301-.502.1-.2.05-.376-.025-.526-.075-.151-.678-1.632-.93-2.235-.245-.589-.494-.509-.678-.518-.176-.008-.376-.01-.577-.01-.2 0-.527.075-.803.376s-1.054 1.029-1.054 2.509 1.079 2.909 1.23 3.109c.15.201 2.122 3.24 5.14 4.543.718.31 1.278.496 1.716.634.721.23 1.378.197 1.9.119.58-.088 1.78-.727 2.03-1.43.25-.704.25-1.307.176-1.43-.075-.123-.276-.2-.577-.35z"/>
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.05 21.95a.8.8 0 00.999.999l4.782-1.388A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.167-.492-4.45-1.336a.8.8 0 00-.547-.118l-3.328.966.966-3.328a.8.8 0 00-.118-.547A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
+            </svg>
+            <span>Get Detailed Quote On WhatsApp</span>
+          </a>
+          <p class="text-xs text-slate-400 mt-3">
+            Free site survey in Ujjain · Official Discom Empaneled · Direct Subsidy Assistance
+          </p>
+        </div>
+
       </div>
+
+    </div>
+  </section>
 
     </div>
   </section>

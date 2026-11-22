@@ -162,98 +162,99 @@ function initStatsCounters() {
 }
 
 /* --------------------------------------------------------------------------
-   6. SOLAR SAVINGS CALCULATOR (PM Surya Ghar Model)
+   6. SOLAR SAVINGS CALCULATOR (Simple & Clean PM Surya Ghar Model)
    -------------------------------------------------------------------------- */
 function initSolarCalculator() {
   const billSlider = document.getElementById('bill-slider');
   const billDisplay = document.getElementById('bill-display');
-  const typeRadios = document.querySelectorAll('input[name="customer-type"]');
+  const presetChips = document.querySelectorAll('.calc-preset-chip');
   
   const kwDisplay = document.getElementById('calc-kw');
   const costDisplay = document.getElementById('calc-cost');
   const subsidyDisplay = document.getElementById('calc-subsidy');
   const netCostDisplay = document.getElementById('calc-net-cost');
-  const monthlySavingsDisplay = document.getElementById('calc-monthly-savings');
   const annualSavingsDisplay = document.getElementById('calc-annual-savings');
-  const lifetimeSavingsDisplay = document.getElementById('calc-lifetime-savings');
   const paybackDisplay = document.getElementById('calc-payback');
   const roofAreaDisplay = document.getElementById('calc-roof');
   const whatsappCalcBtn = document.getElementById('calc-whatsapp-btn');
 
   if (!billSlider) return;
 
-  function updateCalculator() {
-    const monthlyBill = parseInt(billSlider.value, 10);
+  function updateCalculator(monthlyBill) {
+    if (typeof monthlyBill === 'undefined') {
+      monthlyBill = parseInt(billSlider.value, 10);
+    } else {
+      billSlider.value = monthlyBill;
+    }
+
     if (billDisplay) {
       billDisplay.textContent = '₹' + monthlyBill.toLocaleString('en-IN');
     }
 
-    let customerType = 'residential';
-    typeRadios.forEach(r => {
-      if (r.checked) customerType = r.value;
+    // Update active state of preset chips
+    presetChips.forEach(chip => {
+      const chipVal = parseInt(chip.getAttribute('data-bill'), 10);
+      if (chipVal === monthlyBill) {
+        chip.className = 'calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 transition-colors';
+      } else {
+        chip.className = 'calc-preset-chip px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors';
+      }
     });
 
-    // Calculations based on MPPKVVCL tariff (~₹7.5/unit)
+    // Calculations based on MPPKVVCL domestic tariff (~₹7.5/unit)
     // 1kW produces ~120 units/mo (~₹900 savings)
     let recommendedKw = Math.round(monthlyBill / 950);
     if (recommendedKw < 1) recommendedKw = 1;
     if (recommendedKw > 15) recommendedKw = 15;
 
-    // Estimated standard EPC project cost (₹60,000/kW benchmark)
+    // Standard benchmark EPC cost
     const baseCostPerKw = 60000;
     const totalCost = recommendedKw * baseCostPerKw;
 
-    // Subsidy calculation (PM Surya Ghar Muft Bijli Yojana)
+    // PM Surya Ghar Subsidy (DBT Direct To Bank)
     let subsidy = 0;
-    if (customerType === 'residential') {
-      if (recommendedKw === 1) {
-        subsidy = 30000;
-      } else if (recommendedKw === 2) {
-        subsidy = 60000;
-      } else {
-        subsidy = 78000; // Flat cap for 3kW and above
-      }
+    if (recommendedKw === 1) {
+      subsidy = 30000;
+    } else if (recommendedKw === 2) {
+      subsidy = 60000;
     } else {
-      // Commercial has 40% accelerated depreciation tax savings
-      subsidy = 0;
+      subsidy = 78000; // Flat cap for 3kW and above
     }
 
     const netCost = totalCost - subsidy;
-    const monthlySavings = Math.min(monthlyBill, recommendedKw * 950);
-    const annualSavings = monthlySavings * 12;
-    const lifetimeSavings = annualSavings * 25; // 25 years lifecycle
+    const annualSavings = recommendedKw * 120 * 12 * 7.5; // ~120 units/mo * 12 mos * 7.5/unit
     const paybackYears = (netCost / annualSavings).toFixed(1);
-    const roofArea = recommendedKw * 90; // ~90-100 sq.ft per kW
+    const roofArea = recommendedKw * 90; // ~90 sq.ft per kW
 
-    // Update DOM
+    // Update DOM elements cleanly
     if (kwDisplay) kwDisplay.textContent = recommendedKw + ' kW';
-    if (costDisplay) costDisplay.textContent = '₹' + totalCost.toLocaleString('en-IN');
-    if (subsidyDisplay) {
-      if (customerType === 'residential') {
-        subsidyDisplay.textContent = '₹' + subsidy.toLocaleString('en-IN');
-      } else {
-        subsidyDisplay.textContent = 'Tax Benefit (40% Dep.)';
-      }
-    }
+    if (costDisplay) costDisplay.textContent = 'Total: ₹' + totalCost.toLocaleString('en-IN');
+    if (subsidyDisplay) subsidyDisplay.textContent = '₹' + subsidy.toLocaleString('en-IN');
     if (netCostDisplay) netCostDisplay.textContent = '₹' + netCost.toLocaleString('en-IN');
-    if (monthlySavingsDisplay) monthlySavingsDisplay.textContent = '₹' + monthlySavings.toLocaleString('en-IN');
-    if (annualSavingsDisplay) annualSavingsDisplay.textContent = '₹' + annualSavings.toLocaleString('en-IN');
-    if (lifetimeSavingsDisplay) lifetimeSavingsDisplay.textContent = '₹' + lifetimeSavings.toLocaleString('en-IN');
-    if (paybackDisplay) paybackDisplay.textContent = paybackYears + ' Years';
-    if (roofAreaDisplay) roofAreaDisplay.textContent = roofArea + ' sq.ft';
+    if (annualSavingsDisplay) annualSavingsDisplay.textContent = '₹' + Math.round(annualSavings).toLocaleString('en-IN');
+    if (paybackDisplay) paybackDisplay.textContent = `Payback in ~${paybackYears} Yrs`;
+    if (roofAreaDisplay) roofAreaDisplay.textContent = `Requires ~${roofArea} sq.ft`;
 
-    // Update WhatsApp Button Link
+    // WhatsApp Message
     if (whatsappCalcBtn) {
-      const msg = `Hello Innovative Energy Solutions! I used your Solar Calculator for my monthly electricity bill of ₹${monthlyBill.toLocaleString('en-IN')}.\n\n*Recommended System:* ${recommendedKw} kW\n*Estimated Net Cost:* ₹${netCost.toLocaleString('en-IN')}\n*Govt Subsidy:* ₹${subsidy.toLocaleString('en-IN')}\n*Annual Savings:* ₹${annualSavings.toLocaleString('en-IN')}\n\nPlease arrange a free roof survey in Ujjain!`;
+      const msg = `Hello Innovative Energy Solutions! I used your Solar Calculator for my monthly bill of ₹${monthlyBill.toLocaleString('en-IN')}.\n\n*Recommended System:* ${recommendedKw} kW\n*PM Surya Ghar Subsidy:* ₹${subsidy.toLocaleString('en-IN')}\n*Net Cost:* ₹${netCost.toLocaleString('en-IN')}\n*Annual Savings:* ₹${Math.round(annualSavings).toLocaleString('en-IN')}/year\n\nPlease arrange a free roof survey in Ujjain!`;
       whatsappCalcBtn.href = `https://wa.me/917000787022?text=${encodeURIComponent(msg)}`;
     }
   }
 
-  billSlider.addEventListener('input', updateCalculator);
-  typeRadios.forEach(r => r.addEventListener('change', updateCalculator));
+  billSlider.addEventListener('input', function() {
+    updateCalculator(parseInt(this.value, 10));
+  });
+
+  presetChips.forEach(chip => {
+    chip.addEventListener('click', function() {
+      const val = parseInt(this.getAttribute('data-bill'), 10);
+      updateCalculator(val);
+    });
+  });
 
   // Initial run
-  updateCalculator();
+  updateCalculator(3500);
 }
 
 /* --------------------------------------------------------------------------
