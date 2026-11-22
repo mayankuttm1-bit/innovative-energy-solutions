@@ -96,7 +96,7 @@ function initSmoothScroll() {
 }
 
 /* --------------------------------------------------------------------------
-   4. SCROLL REVEAL ANIMATIONS
+   4. SCROLL REVEAL ANIMATIONS (WITH INSTANT VIEWPORT & TIMEOUT FAILSAFE)
    -------------------------------------------------------------------------- */
 function initScrollAnimations() {
   const reveals = document.querySelectorAll('.reveal-on-scroll');
@@ -110,11 +110,26 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px 50px 0px'
   });
 
-  reveals.forEach(el => observer.observe(el));
+  reveals.forEach(el => {
+    // If element is already within or near viewport, reveal immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 50 && rect.bottom > -50) {
+      el.classList.add('revealed');
+    } else {
+      observer.observe(el);
+    }
+  });
+
+  // Failsafe: reveal any remaining elements after 1.2s so content is never blank
+  setTimeout(() => {
+    document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el => {
+      el.classList.add('revealed');
+    });
+  }, 1200);
 }
 
 /* --------------------------------------------------------------------------
@@ -452,10 +467,6 @@ function initLightbox() {
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', (e) => {
-    if (e.target === modal || e.target.classList.contains('lightbox-backdrop')) {
-      closeModal();
-    }
-  });
     if (e.target === modal || e.target.classList.contains('lightbox-backdrop')) {
       closeModal();
     }
