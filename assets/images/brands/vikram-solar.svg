@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <rect width="200" height="60" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="25" y="32" font-family="system-ui, sans-serif" font-weight="900" font-size="17" fill="#047857" letter-spacing="0.1em">VIKRAM</text>
+  <text x="25" y="47" font-family="system-ui, sans-serif" font-weight="700" font-size="10" fill="#0F172A" letter-spacing="0.25em">SOLAR</text>
+  <circle cx="165" cy="30" r="12" fill="#047857"/>
+  <path d="M165 22 V38 M157 30 H173" stroke="#FFFFFF" stroke-width="2.5"/>
+</svg>

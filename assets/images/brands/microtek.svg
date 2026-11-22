@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <rect width="200" height="60" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="25" y="34" font-family="system-ui, sans-serif" font-weight="900" font-size="18" fill="#0D9488" letter-spacing="0.1em">MICROTEK</text>
+  <text x="25" y="48" font-family="system-ui, sans-serif" font-weight="700" font-size="9" fill="#64748B" letter-spacing="0.2em">TECHNOLOGY WE LIVE</text>
+  <rect x="155" y="22" width="20" height="16" rx="3" fill="#0D9488"/>
+  <circle cx="165" cy="30" r="4" fill="#FFFFFF"/>
+</svg>

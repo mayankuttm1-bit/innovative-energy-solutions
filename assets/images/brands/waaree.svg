@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <rect width="200" height="60" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="25" y="34" font-family="system-ui, sans-serif" font-weight="900" font-size="18" fill="#D97706" letter-spacing="0.12em">WAAREE</text>
+  <text x="25" y="48" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#475569" letter-spacing="0.2em">ONE WITH THE SUN</text>
+  <path d="M165 18 L175 38 H155 Z" fill="#D97706"/>
+</svg>
