@@ -97,13 +97,14 @@ function initSmoothScroll() {
 }
 
 /* --------------------------------------------------------------------------
-   4. SCROLL REVEAL ANIMATIONS (WITH INSTANT VIEWPORT & TIMEOUT FAILSAFE)
+   4. SCROLL REVEAL ANIMATIONS (SMOOTH DYNAMIC ENTRY AS USER SCROLLS DOWN)
    -------------------------------------------------------------------------- */
 function initScrollAnimations() {
   document.documentElement.classList.add('js-ready');
   const reveals = document.querySelectorAll('.reveal-on-scroll');
   if (!reveals.length) return;
 
+  // Use IntersectionObserver with a balanced threshold so animations trigger dynamically as user scrolls
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -112,26 +113,39 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.05,
-    rootMargin: '0px 0px 50px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
   });
 
   reveals.forEach(el => {
-    // If element is already within or near viewport, reveal immediately
+    // Only elements initially visible on first screen load are revealed immediately
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 50 && rect.bottom > -50) {
+    if (rect.top < window.innerHeight - 50 && rect.bottom > 50) {
       el.classList.add('revealed');
     } else {
       observer.observe(el);
     }
   });
 
-  // Failsafe: reveal any remaining elements after 1.2s so content is never blank
-  setTimeout(() => {
-    document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el => {
-      el.classList.add('revealed');
-    });
-  }, 1200);
+  // Passive scroll check (fallback only for elements actually entering viewport, NEVER blanket reveals offscreen elements)
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        reveals.forEach(el => {
+          if (!el.classList.contains('revealed')) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
+              el.classList.add('revealed');
+              observer.unobserve(el);
+            }
+          }
+        });
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
 }
 
 /* --------------------------------------------------------------------------
@@ -276,7 +290,7 @@ function initSolarCalculator() {
 }
 
 /* --------------------------------------------------------------------------
-   7. HORIZONTAL SCROLLABLE PROJECTS CAROUSEL (RIGHT-TO-LEFT GLIDE)
+   7. HORIZONTAL SCROLLABLE PROJECTS CAROUSEL (STEP-BY-STEP 3-SECOND ADVANCE)
    -------------------------------------------------------------------------- */
 let isProjectDragging = false;
 
@@ -293,8 +307,7 @@ function initProjectsCarousel() {
   let startX = 0;
   let scrollStart = 0;
   let dragDistance = 0;
-  const speed = 0.8; // Smooth auto-gliding speed (pixels per frame)
-  let resumeTimer = null;
+  let stepInterval = null;
 
   function updateProgressBar() {
     if (!progressBar) return;
@@ -305,66 +318,105 @@ function initProjectsCarousel() {
     }
   }
 
-  // Smooth auto-scroll loop (gliding from right to left)
-  function autoScrollStep() {
-    if (!isPaused && !isPointerDown && track.scrollWidth > track.clientWidth) {
-      track.scrollLeft += speed;
-      // Loop smoothly if end reached
-      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) {
-        track.scrollLeft = 0;
-      }
-      updateProgressBar();
+  function getStepDistance() {
+    const visibleCards = Array.from(track.querySelectorAll('.project-card')).filter(c => c.style.display !== 'none');
+    if (visibleCards.length) {
+      return visibleCards[0].offsetWidth + 24; // Card width + 1.5rem (24px) gap
     }
-    requestAnimationFrame(autoScrollStep);
+    return 340;
   }
-  requestAnimationFrame(autoScrollStep);
 
-  function pauseAutoScroll(duration) {
-    isPaused = true;
-    if (resumeTimer) clearTimeout(resumeTimer);
-    if (duration) {
-      resumeTimer = setTimeout(() => {
-        isPaused = false;
-      }, duration);
+  // Smoothly move by exactly one card
+  function advanceOneCard() {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 5) return;
+
+    const step = getStepDistance();
+    if (track.scrollLeft >= maxScroll - 20) {
+      // Loop smoothly back to beginning
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: step, behavior: 'smooth' });
+    }
+    setTimeout(updateProgressBar, 350);
+  }
+
+  function retreatOneCard() {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 5) return;
+
+    const step = getStepDistance();
+    if (track.scrollLeft <= 20) {
+      track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: -step, behavior: 'smooth' });
+    }
+    setTimeout(updateProgressBar, 350);
+  }
+
+  // 3-second auto-advance timer
+  function startAutoAdvance() {
+    stopAutoAdvance();
+    stepInterval = setInterval(() => {
+      if (!isPaused && !isPointerDown) {
+        advanceOneCard();
+      }
+    }, 3000);
+  }
+
+  function stopAutoAdvance() {
+    if (stepInterval) {
+      clearInterval(stepInterval);
+      stepInterval = null;
     }
   }
+
+  // Initialize auto-advance
+  startAutoAdvance();
 
   // Pause on hover
-  track.addEventListener('mouseenter', () => { isPaused = true; });
+  track.addEventListener('mouseenter', () => {
+    isPaused = true;
+    stopAutoAdvance();
+  });
+
   track.addEventListener('mouseleave', () => {
-    if (!isPointerDown) isPaused = false;
+    if (!isPointerDown) {
+      isPaused = false;
+      startAutoAdvance();
+    }
   });
 
   // Touch events for mobile
   track.addEventListener('touchstart', () => {
-    pauseAutoScroll();
+    isPaused = true;
+    stopAutoAdvance();
   }, { passive: true });
 
   track.addEventListener('touchend', () => {
-    pauseAutoScroll(2500);
+    isPaused = false;
+    setTimeout(startAutoAdvance, 1500);
   });
 
   // Manual Prev / Next navigation buttons
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      pauseAutoScroll(3500);
-      const cardWidth = track.querySelector('.project-card')?.offsetWidth || 340;
-      track.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
+      advanceOneCard();
+      startAutoAdvance(); // Reset 3s timer
     });
   }
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      pauseAutoScroll(3500);
-      const cardWidth = track.querySelector('.project-card')?.offsetWidth || 340;
-      track.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' });
+      retreatOneCard();
+      startAutoAdvance(); // Reset 3s timer
     });
   }
 
   // Mouse Drag-to-Scroll (Desktop)
   track.addEventListener('mousedown', (e) => {
     isPointerDown = true;
-    pauseAutoScroll();
+    stopAutoAdvance();
     startX = e.pageX - track.offsetLeft;
     scrollStart = track.scrollLeft;
     dragDistance = 0;
@@ -389,7 +441,7 @@ function initProjectsCarousel() {
       isPointerDown = false;
       setTimeout(() => {
         isProjectDragging = false;
-        pauseAutoScroll(2000);
+        startAutoAdvance();
       }, 50);
     }
   });
@@ -482,7 +534,7 @@ function initLightbox() {
 }
 
 /* --------------------------------------------------------------------------
-   9. HORIZONTAL SCROLLABLE REVIEWS CAROUSEL (RIGHT-TO-LEFT GLIDE)
+   9. HORIZONTAL SCROLLABLE REVIEWS CAROUSEL (STEP-BY-STEP 3-SECOND ADVANCE)
    -------------------------------------------------------------------------- */
 let isReviewDragging = false;
 
@@ -499,8 +551,7 @@ function initReviewsCarousel() {
   let startX = 0;
   let scrollStart = 0;
   let dragDistance = 0;
-  const speed = 0.7; // Smooth auto-gliding speed (pixels per frame)
-  let resumeTimer = null;
+  let stepInterval = null;
 
   function updateProgressBar() {
     if (!progressBar) return;
@@ -511,66 +562,94 @@ function initReviewsCarousel() {
     }
   }
 
-  // Smooth auto-scroll loop (gliding from right to left)
-  function autoScrollStep() {
-    if (!isPaused && !isPointerDown && track.scrollWidth > track.clientWidth) {
-      track.scrollLeft += speed;
-      // Loop smoothly if end reached
-      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) {
-        track.scrollLeft = 0;
+  function getStepDistance() {
+    const card = track.querySelector('.review-card-slide');
+    return card ? (card.offsetWidth + 24) : 340;
+  }
+
+  function advanceOneReview() {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 5) return;
+
+    const step = getStepDistance();
+    if (track.scrollLeft >= maxScroll - 20) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: step, behavior: 'smooth' });
+    }
+    setTimeout(updateProgressBar, 350);
+  }
+
+  function retreatOneReview() {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 5) return;
+
+    const step = getStepDistance();
+    if (track.scrollLeft <= 20) {
+      track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: -step, behavior: 'smooth' });
+    }
+    setTimeout(updateProgressBar, 350);
+  }
+
+  function startAutoAdvance() {
+    stopAutoAdvance();
+    stepInterval = setInterval(() => {
+      if (!isPaused && !isPointerDown) {
+        advanceOneReview();
       }
-      updateProgressBar();
-    }
-    requestAnimationFrame(autoScrollStep);
+    }, 3000);
   }
-  requestAnimationFrame(autoScrollStep);
 
-  function pauseAutoScroll(duration) {
+  function stopAutoAdvance() {
+    if (stepInterval) {
+      clearInterval(stepInterval);
+      stepInterval = null;
+    }
+  }
+
+  startAutoAdvance();
+
+  track.addEventListener('mouseenter', () => {
     isPaused = true;
-    if (resumeTimer) clearTimeout(resumeTimer);
-    if (duration) {
-      resumeTimer = setTimeout(() => {
-        isPaused = false;
-      }, duration);
-    }
-  }
-
-  // Pause on hover
-  track.addEventListener('mouseenter', () => { isPaused = true; });
-  track.addEventListener('mouseleave', () => {
-    if (!isPointerDown) isPaused = false;
+    stopAutoAdvance();
   });
 
-  // Touch events for mobile
+  track.addEventListener('mouseleave', () => {
+    if (!isPointerDown) {
+      isPaused = false;
+      startAutoAdvance();
+    }
+  });
+
   track.addEventListener('touchstart', () => {
-    pauseAutoScroll();
+    isPaused = true;
+    stopAutoAdvance();
   }, { passive: true });
 
   track.addEventListener('touchend', () => {
-    pauseAutoScroll(2500);
+    isPaused = false;
+    setTimeout(startAutoAdvance, 1500);
   });
 
-  // Manual Prev / Next navigation buttons
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      pauseAutoScroll(3500);
-      const cardWidth = track.querySelector('.review-card-slide')?.offsetWidth || 340;
-      track.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
+      advanceOneReview();
+      startAutoAdvance();
     });
   }
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      pauseAutoScroll(3500);
-      const cardWidth = track.querySelector('.review-card-slide')?.offsetWidth || 340;
-      track.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' });
+      retreatOneReview();
+      startAutoAdvance();
     });
   }
 
-  // Mouse Drag-to-Scroll (Desktop)
   track.addEventListener('mousedown', (e) => {
     isPointerDown = true;
-    pauseAutoScroll();
+    stopAutoAdvance();
     startX = e.pageX - track.offsetLeft;
     scrollStart = track.scrollLeft;
     dragDistance = 0;
@@ -595,7 +674,7 @@ function initReviewsCarousel() {
       isPointerDown = false;
       setTimeout(() => {
         isReviewDragging = false;
-        pauseAutoScroll(2000);
+        startAutoAdvance();
       }, 50);
     }
   });

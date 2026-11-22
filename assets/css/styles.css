@@ -463,22 +463,50 @@ input[type=range].solar-slider::-moz-range-thumb {
   animation-play-state: paused;
 }
 
-/* 5. Scroll reveal helper - Safe & Ultra Smooth */
+/* 5. Scroll reveal motion system - High Quality & Dynamic */
 .reveal-on-scroll {
-  opacity: 1; /* Safe resilient default: never stays blank */
+  opacity: 1; /* Safe resilient default: never stays blank if JS fails */
   transform: none;
-  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 html.js-ready .reveal-on-scroll:not(.revealed) {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(34px) scale(0.985);
 }
 
 html.js-ready .reveal-on-scroll.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Directional entry variations */
+html.js-ready .reveal-on-scroll.reveal-left:not(.revealed) {
+  opacity: 0;
+  transform: translateX(-36px) scale(0.985);
+}
+html.js-ready .reveal-on-scroll.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+html.js-ready .reveal-on-scroll.reveal-right:not(.revealed) {
+  opacity: 0;
+  transform: translateX(36px) scale(0.985);
+}
+html.js-ready .reveal-on-scroll.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+html.js-ready .reveal-on-scroll.reveal-scale:not(.revealed) {
+  opacity: 0;
+  transform: scale(0.93);
+}
+html.js-ready .reveal-on-scroll.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .reveal-delay-1 { transition-delay: 100ms; }
@@ -486,6 +514,7 @@ html.js-ready .reveal-on-scroll.revealed {
 .reveal-delay-3 { transition-delay: 300ms; }
 .reveal-delay-4 { transition-delay: 400ms; }
 
+.delay-50  { transition-delay: 50ms; }
 .delay-75  { transition-delay: 75ms; }
 .delay-100 { transition-delay: 100ms; }
 .delay-150 { transition-delay: 150ms; }
@@ -495,6 +524,7 @@ html.js-ready .reveal-on-scroll.revealed {
 .delay-350 { transition-delay: 350ms; }
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
 
 /* Beacon Pulse Animations */
 @keyframes beaconPulse {
