@@ -99,6 +99,7 @@ function initSmoothScroll() {
    4. SCROLL REVEAL ANIMATIONS (WITH INSTANT VIEWPORT & TIMEOUT FAILSAFE)
    -------------------------------------------------------------------------- */
 function initScrollAnimations() {
+  document.documentElement.classList.add('js-ready');
   const reveals = document.querySelectorAll('.reveal-on-scroll');
   if (!reveals.length) return;
 

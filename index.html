@@ -52,8 +52,8 @@
     }
   </script>
 
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Custom Stylesheet with Cache Busting -->
+  <link rel="stylesheet" href="assets/css/styles.css?v=3.5">
 </head>
 <body class="bg-white text-slate-900 antialiased overflow-x-hidden">
 
@@ -163,13 +163,13 @@
 
           <!-- Dual CTA Buttons (Single Line, Non-wrapping on Mobile) -->
           <div class="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-8">
-            <a href="#calculator" class="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-obsidian text-white font-bold text-sm tracking-wide hover:bg-slate-800 transition-all text-center shadow-md">
+            <a href="#calculator" class="btn-shine inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-obsidian text-white font-bold text-sm tracking-wide hover:bg-slate-800 transition-all text-center shadow-md">
               Calculate Solar Savings
               <svg class="w-4 h-4 ml-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
             </a>
-            <a href="https://wa.me/917000787022?text=Hello%20Innovative%20Energy%20Solutions!%20Please%20send%20me%20your%20solar%20rooftop%20brochure%20and%20subsidy%20details." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-emerald-600 text-white font-bold text-sm tracking-wide hover:bg-emerald-700 transition-all text-center shadow-md">
+            <a href="https://wa.me/917000787022?text=Hello%20Innovative%20Energy%20Solutions!%20Please%20send%20me%20your%20solar%20rooftop%20brochure%20and%20subsidy%20details." target="_blank" rel="noopener noreferrer" class="btn-shine inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-emerald-600 text-white font-bold text-sm tracking-wide hover:bg-emerald-700 transition-all text-center shadow-md">
               <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.477-.15-.678.15-.2.301-.778.979-.954 1.18-.175.2-.351.226-.652.075-.301-.151-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.176.2-.301.301-.502.1-.2.05-.376-.025-.526-.075-.151-.678-1.632-.93-2.235-.245-.589-.494-.509-.678-.518-.176-.008-.376-.01-.577-.01-.2 0-.527.075-.803.376s-1.054 1.029-1.054 2.509 1.079 2.909 1.23 3.109c.15.201 2.122 3.24 5.14 4.543.718.31 1.278.496 1.716.634.721.23 1.378.197 1.9.119.58-.088 1.78-.727 2.03-1.43.25-.704.25-1.307.176-1.43-.075-.123-.276-.2-.577-.35z"/>
                 <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.05 21.95a.8.8 0 00.999.999l4.782-1.388A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.637 0-3.167-.492-4.45-1.336a.8.8 0 00-.547-.118l-3.328.966.966-3.328a.8.8 0 00-.118-.547A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
@@ -222,7 +222,7 @@
             </div>
 
             <!-- Floating Mini Card 1: Bill Reduction -->
-            <div class="absolute -top-5 -left-4 sm:-left-6 bg-white p-3.5 rounded-xl shadow-xl border border-slate-200 hidden sm:flex items-center gap-3">
+            <div class="absolute -top-5 -left-4 sm:-left-6 bg-white p-3.5 rounded-xl shadow-xl border border-slate-200 hidden sm:flex items-center gap-3 animate-float">
               <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 font-black text-lg">
                 ⚡
               </div>
@@ -233,7 +233,7 @@
             </div>
 
             <!-- Floating Mini Card 2: 70+ 5-Star Reviews -->
-            <div class="absolute -bottom-5 -right-4 sm:-right-6 bg-white p-3.5 rounded-xl shadow-xl border border-slate-200 hidden sm:flex items-center gap-3">
+            <div class="absolute -bottom-5 -right-4 sm:-right-6 bg-white p-3.5 rounded-xl shadow-xl border border-slate-200 hidden sm:flex items-center gap-3 animate-float-delayed">
               <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 font-black text-lg">
                 ✓
               </div>
@@ -953,60 +953,75 @@
     </div>
   </div>
 
-  <!-- 9. PRODUCTS / BRANDS SECTION -->
-  <section class="py-16 md:py-20 bg-slate-50 border-t border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
-        <span class="text-xs font-extrabold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200">
-          Authorized OEM Partnerships
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3 mb-3">
-          World-Class Solar Equipment & Tier-1 Brands
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600">
-          We only install MNRE-approved modules and inverters backed by comprehensive 25-year manufacturer performance guarantees.
-        </p>
-      </div>
+  <!-- 9. PRODUCTS / BRANDS SECTION (CONTINUOUS FLOATING MARQUEE) -->
+  <section id="brands" class="py-14 md:py-20 bg-slate-50 border-t border-slate-200 overflow-hidden w-full max-w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center reveal-on-scroll">
+      <span class="text-xs font-extrabold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200">
+        Authorized OEM Partnerships
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3 mb-2">
+        World-Class Solar Equipment & Tier-1 Brands
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600">
+        We only install MNRE-approved modules and tier-1 smart inverters backed by comprehensive 25-year manufacturer performance guarantees.
+      </p>
+    </div>
 
-      <!-- Brands Grid: 8 Tested SVGs -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-        
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+    <!-- Infinite Continuous Brand Marquee Track -->
+    <div class="marquee-wrapper py-3">
+      <div class="marquee-content">
+        <!-- Set 1 -->
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/tata-solar.svg" alt="Tata Power Solar Authorized EPC" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/adani-solar.svg" alt="Adani Solar Partner Ujjain" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/waaree.svg" alt="Waaree Energies Solar Panels" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/vikram-solar.svg" alt="Vikram Solar Modules" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/growatt.svg" alt="Growatt Smart Inverters" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/sungrow.svg" alt="Sungrow Inverters" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/havells.svg" alt="Havells Solar DC Switchgear" class="h-10 w-auto object-contain">
         </div>
-
-        <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center reveal-on-scroll">
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
           <img src="assets/images/brands/microtek.svg" alt="Microtek Solar Power" class="h-10 w-auto object-contain">
         </div>
 
+        <!-- Set 2 (Duplicate for Seamless Infinite Loop) -->
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/tata-solar.svg" alt="Tata Power Solar Authorized EPC" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/adani-solar.svg" alt="Adani Solar Partner Ujjain" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/waaree.svg" alt="Waaree Energies Solar Panels" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/vikram-solar.svg" alt="Vikram Solar Modules" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/growatt.svg" alt="Growatt Smart Inverters" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/sungrow.svg" alt="Sungrow Inverters" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/havells.svg" alt="Havells Solar DC Switchgear" class="h-10 w-auto object-contain">
+        </div>
+        <div class="p-4 px-6 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center min-w-[170px] sm:min-w-[200px] h-20 transition-all duration-300 hover:scale-105 hover:border-amber-400">
+          <img src="assets/images/brands/microtek.svg" alt="Microtek Solar Power" class="h-10 w-auto object-contain">
+        </div>
       </div>
-
     </div>
   </section>
 
@@ -1607,7 +1622,7 @@
     </a>
   </aside>
 
-  <!-- Main JavaScript File -->
-  <script src="assets/js/main.js"></script>
+  <!-- Main JavaScript File with Cache Busting -->
+  <script src="assets/js/main.js?v=3.5"></script>
 </body>
 </html>

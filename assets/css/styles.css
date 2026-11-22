@@ -292,14 +292,121 @@ input[type=range].solar-slider::-moz-range-thumb {
   transform: scale(1.05);
 }
 
-/* Scroll reveal helper */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* ==========================================================================
+   PREMIUM MOTION & ANIMATION SYSTEM
+   ========================================================================== */
+
+/* 1. Floating Animation for Badges & Cards */
+@keyframes floatSmooth {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-.reveal-on-scroll.revealed {
+@keyframes floatSmoothDelayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+.animate-float {
+  animation: floatSmooth 4.5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatSmoothDelayed 5.2s ease-in-out infinite 0.7s;
+}
+
+/* 2. Ambient Amber Glow & Radar Pulse */
+@keyframes amberGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(245, 158, 11, 0.5);
+  }
+}
+
+.animate-amber-glow {
+  animation: amberGlow 3s ease-in-out infinite;
+}
+
+/* 3. Subtle Button Shine / Micro Shimmer */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 45%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(25deg);
+  transition: all 0.75s ease-in-out;
+}
+
+.btn-shine:hover::after {
+  left: 140%;
+}
+
+/* 4. Continuous Marquee for OEM Brand Logos */
+@keyframes brandMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.marquee-content {
+  display: flex;
+  width: max-content;
+  gap: 1.5rem;
+  animation: brandMarquee 26s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* 5. Scroll reveal helper - Safe & Ultra Smooth */
+.reveal-on-scroll {
+  opacity: 1; /* Safe resilient default: never stays blank */
+  transform: none;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.js-ready .reveal-on-scroll:not(.revealed) {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+html.js-ready .reveal-on-scroll.revealed {
   opacity: 1;
   transform: translateY(0);
 }
+
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+.reveal-delay-4 { transition-delay: 400ms; }
